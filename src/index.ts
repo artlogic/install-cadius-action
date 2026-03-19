@@ -41,12 +41,9 @@ async function downloadProdos(cadiusPath: string) {
         cadiusExe = util.format('%s/Cadius.exe', cadiusPath)
     }
 
-    // something is wrong with the mirrors cert so we'll just use http
-    let downloadP8URL = 'http://mirrors.apple2.org.za/ftp.apple.asimov.net/images/masters/prodos/ProDOS_2_4_2.dsk'
-    let downloadD2PURL = 'https://raw.githubusercontent.com/digarok/dsk2po/master/dsk2po.py' 
+    const downloadP8URL = 'https://github.com/ProDOS-8/ProDOS8-Releases/releases/download/2.4.3/ProDOS_2_4_3.po'
     
     let p8DownloadPath;
-    let d2pDownloadPath;
 
     try {
         p8DownloadPath = await toolCache.downloadTool(downloadP8URL);
@@ -56,23 +53,13 @@ async function downloadProdos(cadiusPath: string) {
     }
     console.log(util.format("Downloaded file: ", p8DownloadPath));
     // move it so it's in the user workspace in any future steps
-    let p8DskPath = './ProDOS_2_4_2.dsk'
-    fs.renameSync(p8DownloadPath, p8DskPath);
-
-    try {
-        d2pDownloadPath = await toolCache.downloadTool(downloadD2PURL);
-    } catch (exception) {
-        console.log(exception);
-        throw new Error(util.format("Failed to download dsk2po.py from location ", downloadD2PURL));
-    }
-    console.log(util.format("Downloaded file: ", d2pDownloadPath));
+    fs.renameSync(p8DownloadPath, './ProDOS_2_4_3.po');
 
     // Now we need to a) convert the image and b) extract the volume file locally
     try {
         const spawnSync = require("child_process").spawnSync;
 
-        spawnSync('python3',[d2pDownloadPath, p8DskPath]);
-        const cadiusProcess = spawnSync(cadiusExe, ['extractvolume', 'ProDOS_2_4_2.po', '.'],{ encoding : 'utf8' })
+        const cadiusProcess = spawnSync(cadiusExe, ['extractvolume', 'ProDOS_2_4_3.po', '.'],{ encoding : 'utf8' })
         console.log(cadiusProcess.stdout);
     } catch (exception) {
         console.log(exception);
