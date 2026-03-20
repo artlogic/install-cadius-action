@@ -55,7 +55,7 @@ async function downloadProdos(cadiusPath: string) {
     // move it so it's in the user workspace in any future steps
     fs.renameSync(p8DownloadPath, './ProDOS_2_4_3.po');
 
-    // Now we need to a) convert the image and b) extract the volume file locally
+    // Now we need to extract the volume file locally
     try {
         const spawnSync = require("child_process").spawnSync;
 
