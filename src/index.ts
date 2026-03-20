@@ -67,7 +67,7 @@ async function downloadProdos(cadiusPath: string) {
     }
     console.log(util.format("Downloaded file: ", d2pDownloadPath));
 
-    // Now we need to a) convert the image and b) extract the volume file locally
+    // Now we need to extract the volume file locally
     try {
         const spawnSync = require("child_process").spawnSync;
 
