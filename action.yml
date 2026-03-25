@@ -6,7 +6,7 @@ inputs:
     description: 'Download Prodos 2.4.2 files to allow you to create a bootable disk.'
     default: 'true'
 runs:
-  using: 'node20'
+  using: 'node22'
   main: 'dist/index.js'
 branding:
   icon: 'save'
