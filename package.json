@@ -1,23 +1,23 @@
 {
   "name": "install-cadius-action",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "package": "ncc build dist/index.js",
-    "all": "npm run build && npm run package"
+    "build": "esbuild src/index.ts --bundle --platform=node --target=node22 --format=cjs --outfile=dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "all": "npm run typecheck && npm run build"
   },
   "dependencies": {
-    "@actions/core": "^1.9.1",
-    "@actions/exec": "^1.0.4",
-    "@actions/io": "^1.0.2",
-    "@actions/tool-cache": "^1.6.1"
+    "@actions/core": "^3.0.0",
+    "@actions/exec": "^3.0.0",
+    "@actions/io": "^3.0.2",
+    "@actions/tool-cache": "^4.0.0"
   },
   "devDependencies": {
-    "@types/node": "^12.12.38",
-    "@zeit/ncc": "^0.20.5",
-    "typescript": "^3.6.4"
+    "@types/node": "^22.19.15",
+    "esbuild": "^0.27.4",
+    "typescript": "^5.7.0"
   },
   "description": "A Github Action for installing Cadius and allowing you to manipulate ProDOS disk images in your workflows.",
   "repository": {

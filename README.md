@@ -3,6 +3,12 @@
 # install-cadius-action
 A Github Action for installing Cadius and allowing you to manipulate ProDOS disk images in your workflows.
 
+# Building from source
+```
+npm install
+npm run all
+```
+This compiles `index.ts` with TypeScript and bundles the output with `ncc` into `dist/index.js`.
 
 # Example usage
 ```
