@@ -8,12 +8,12 @@ import * as core from '@actions/core';
 function getDownloadURL(version: string): string {
     switch (os.type()) {
         case 'Linux':
-            return util.format('https://github.com/digarok/cadius/releases/download/%s/cadius-ubuntu-latest-%s.zip', version, version);
+             return util.format('https://github.com/mach-kernel/cadius/releases/download/%s/cadius-linux', version);
         case 'Darwin':
-            return util.format('https://github.com/digarok/cadius/releases/download/%s/cadius-macos-latest-%s.zip', version, version);
+             return util.format('https://github.com/mach-kernel/cadius/releases/download/%s/cadius-darwin', version);
         case 'Windows_NT':
         default:
-            return util.format('https://github.com/digarok/cadius/releases/download/%s/cadius-windows-latest-%s.zip', version, version);
+            return util.format('https://github.com/mach-kernel/cadius/releases/download/%s/cadius.exe', version);
     }
 }
 
@@ -27,8 +27,7 @@ async function downloadCadius(version: string) {
             console.log(exception)
             throw new Error(util.format("Failed to download Cadius from location ", getDownloadURL(version)));
         }
-        const extractedPath = await toolCache.extractZip(downloadPath);
-        cachedToolpath = await toolCache.cacheDir(extractedPath, 'cadius', version);
+        cachedToolpath = await toolCache.cacheFile(downloadPath, 'cadius.exe', 'cadius', version);
     }
     core.addPath(cachedToolpath)
     return cachedToolpath
@@ -36,10 +35,7 @@ async function downloadCadius(version: string) {
 
 async function downloadProdos(cadiusPath: string) {
     // get real exe location (is this needed?)
-    let cadiusExe = util.format('%s/cadius', cadiusPath)
-    if (os.type() == 'Windows_NT') {
-        cadiusExe = util.format('%s/Cadius.exe', cadiusPath)
-    }
+    let cadiusExe = util.format('%s/cadius.exe', cadiusPath)
 
     // something is wrong with the mirrors cert so we'll just use http
     let downloadP8URL = 'http://mirrors.apple2.org.za/ftp.apple.asimov.net/images/masters/prodos/ProDOS_2_4_2.dsk'
