@@ -22167,13 +22167,21 @@ async function downloadCadius(version) {
       console.log(exception);
       throw new Error(util2.format("Failed to download Cadius from location ", getDownloadURL(version)));
     }
-    cachedToolpath = await cacheFile(downloadPath, "cadius.exe", "cadius", version);
+    if (os6.type() == "Windows_NT") {
+      cachedToolpath = await cacheFile(downloadPath, "Cadius.exe", "cadius", version);
+    } else {
+      cachedToolpath = await cacheFile(downloadPath, "cadius", "cadius", version);
+      fs4.chmodSync(util2.format("%s/cadius", cachedToolpath), 493);
+    }
   }
   addPath(cachedToolpath);
   return cachedToolpath;
 }
 async function downloadProdos(cadiusPath) {
-  let cadiusExe = util2.format("%s/cadius.exe", cadiusPath);
+  let cadiusExe = util2.format("%s/cadius", cadiusPath);
+  if (os6.type() == "Windows_NT") {
+    cadiusExe = util2.format("%s/Cadius.exe", cadiusPath);
+  }
   let downloadP8URL = "http://mirrors.apple2.org.za/ftp.apple.asimov.net/images/masters/prodos/ProDOS_2_4_2.dsk";
   let downloadD2PURL = "https://raw.githubusercontent.com/digarok/dsk2po/master/dsk2po.py";
   let p8DownloadPath;
