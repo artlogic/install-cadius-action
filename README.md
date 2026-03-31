@@ -22,12 +22,12 @@ This compiles `index.ts` with TypeScript and bundles the output with `ncc` into 
     - name: Create Boot Volume
     - run: |
         cadius createvolume exampledsk.po exampledsk 140KB
-        cadius addfile exampledsk.po /exampledsk/ ./PRODOS.2.4.2/PRODOS
+        cadius addfile exampledsk.po /exampledsk/ ./PRODOS.2.4.3/PRODOS
 ```
 
 # Arguments/Inputs
 
-This action has one input: `include_prodos`.  It defaults to true, it will download the latest release of ProDOS (2.4.2) and extract all of the files to a directory called `PRODOS.2.4.2`.   This allows you to use those files, if needed, in subsequent steps.  So you can create a bootable disk or even add `BASIC.SYSTEM` to launch into AppleSoft BASIC.  If you don't need any of the ProDOS files, you can skip this by setting it to false and save a second or two. 
+This action has one input: `include_prodos`.  It defaults to true, it will download the latest release of ProDOS (2.4.3) and extract all of the files to a directory called `PRODOS.2.4.3`.   This allows you to use those files, if needed, in subsequent steps.  So you can create a bootable disk or even add `BASIC.SYSTEM` to launch into AppleSoft BASIC.  If you don't need any of the ProDOS files, you can skip this by setting it to false and save a second or two.
 
 # Usage Recommendations
 
